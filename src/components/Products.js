@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+import { useTranslation } from 'react-i18next';
+
 function Products() {
 	useEffect(() => {
 		fetchItems();
@@ -17,9 +19,11 @@ function Products() {
 		setItems(items.data); // return "data" array
 	}
 
+	const { t } = useTranslation();
+
 	return (
-		<div class="container-fluid">
-			<center><h1>Products List</h1></center>
+		<div className="container-fluid">
+			<center><h1>{t("Products List")}</h1></center>
 		 
 			{items.map(item => (
 				<h1 key={item.itemId}>

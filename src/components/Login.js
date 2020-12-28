@@ -1,37 +1,40 @@
-import React, { Component } from 'react'; 
+import React from 'react'; 
+import { useTranslation } from 'react-i18next';
 
-export default class Login extends Component {
-	render() {
+export default function Login() {
+	const { t } = useTranslation();
 
-		return(
-			<div class="container">
-				<center><h1>Login</h1></center>
+	return(
+		<div className="container">
+			<center><h1>{t("Login")}</h1></center>
 
-				<form>
-					<div class="row pt-5 mx-auto">
-						<div class="col-8 form-group mx-auto">
-							<label><strong>Email Address</strong></label>
-							<input type="email" class="form-control" placeholder="Enter Email"></input>
-						</div>
+			<form>
+				<div className="row pt-5 mx-auto">
+					<div className="col-8 form-group mx-auto">
+						<label><strong>{t("Email Address")}</strong></label>
+						<input type="email" className="form-control"></input>
+					</div>
 
-						<div class="col-8 form-group pt-2 mx-auto">
-							<label><strong>Password</strong></label>
-							<input type="password" class="form-control" placeholder="Enter Password"></input>
-						</div>
+					<div className="col-8 form-group pt-2 mx-auto">
+						<label><strong>{t("Password")}</strong></label>
+						<input type="password" className="form-control"></input>
+					</div>
 
-						<div class="col-8 pt-2 mx-auto custom-control custom-checkbox">
-							<input type="checkbox" class="custom-control-input" id="check1"></input>
-							<label class="custom-control-label" htmlFor="check1">Remember me</label>
-						</div>
-
-						<div class="col-8 pt-3 mx-auto">
-							<button type="submit" class="btn btn-primary btn-block">Login</button>
-							<p class="text-right"><a href="#">Forget password?</a></p>
+					<div className="col-8 form-group mx-auto">
+						<div className="form-check">
+							<input type="checkbox" className="form-check-input" id="check1"></input>
+						<label className="form-check-label" htmlFor="check1">{t("Remember me")}</label>
 						</div>
 					</div>
+
+					<div className="col-8 pt-3 mx-auto">
+						<button type="submit" className="btn btn-primary btn-block">{t("Login")}</button>
+						<p className="text-right"><a href="/">{t("Forget password")}?</a></p>
+						<strong>change href in a tag later~~~</strong>
+					</div>
+				</div>
 					
-				</form>
-			</div>
-		)
-	}
+			</form>
+		</div>
+	) 
 }

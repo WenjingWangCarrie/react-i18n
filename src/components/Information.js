@@ -1,71 +1,74 @@
 import React from "react";
+import { withTranslation } from "react-i18next";
 
 class Information extends React.Component {
 
 	onSubmit = () => {
-		this.props.history.push("/"); // after submit form, redirect to a new url
+		this.props.history.push("/home"); // after submit form, redirect to a new url
 	};
 
 	render() {
+    const { t } = this.props;
+
 		return(
-			<div class="container-fluid">
-        <center><h1>Enter Your Personal Information</h1></center>
+			<div className="container-fluid">
+        <center><h1>{t("Enter Your Personal Information")}</h1></center>
 				<form>
-          <div class="form-group">
-            <label for="inputAddress">Username</label>
-            <input type="text" class="form-control" id="inputUsername" placeholder="Username" />
+          <div className="form-group">
+            <label for="inputAddress">{t("Username")}</label>
+            <input type="text" className="form-control" id="inputUsername" />
           </div>
-  				<div class="form-row">
-    				<div class="form-group col-md-6">
-     		 			<label for="inputEmail4">Email</label>
-      				<input type="email" class="form-control" id="inputEmail4" placeholder="Email" />
+  				<div className="form-row">
+    				<div className="form-group col-md-6">
+     		 			<label for="inputEmail4">{t("Email Address")}</label>
+      				<input type="email" className="form-control" id="inputEmail4" />
     				</div>
-    				<div class="form-group col-md-6">
-      				<label for="inputPassword4">Password</label>
-      				<input type="password" class="form-control" id="inputPassword4" placeholder="Password" />
+    				<div className="form-group col-md-6">
+      				<label for="inputPassword4">{t("Password")}</label>
+      				<input type="password" className="form-control" id="inputPassword4" />
     				</div>
   				</div>
 
-  				<div class="form-group">
-    				<label for="inputAddress">Address</label>
-    				<input type="text" class="form-control" id="inputAddress" placeholder="....." />
+  				<div className="form-group">
+    				<label for="inputAddress">{t("Address")}</label>
+    				<input type="text" className="form-control" id="inputAddress" />
   				</div>
-  				<div class="form-group">
-    				<label for="inputAddress2">Address 2</label>
-    				<input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" />
+  				<div className="form-group">
+    				<label for="inputAddress2">{t("Address")} 2</label>
+    				<input type="text" className="form-control" id="inputAddress2" />
   				</div>
 
-  				<div class="form-row">
-    				<div class="form-group col-md-6">
-      				<label for="inputCity">City</label>
-      				<input type="text" class="form-control" id="inputCity" />
+  				<div className="form-row">
+    				<div className="form-group col-md-6">
+      				<label for="inputCity">{t("City")}</label>
+      				<input type="text" className="form-control" id="inputCity" />
     				</div>
-    				<div class="form-group col-md-4">
-      				<label for="inputState">State</label>
-      				<select id="inputState" class="form-control">
-        				<option selected>Choose...</option>
-        				<option>Ontario</option>
-        				<option>Quebec</option>
+    				<div className="form-group col-md-4">
+      				<label for="inputState">{t("State")}</label>
+      				<select id="inputState" className="form-control">
+        				<option selected>{t("Choose")}...</option>
+        				<option>{t("Ontario")}</option>
+        				<option>{t("Quebec")}</option>
       				</select>
     				</div>
-    				<div class="form-group col-md-2">
-      				<label for="inputZip">Zip</label>
-      				<input type="text" class="form-control" id="inputZip" />
+    				<div className="form-group col-md-2">
+      				<label for="inputZip">{t("Zip")}</label>
+      				<input type="text" className="form-control" id="inputZip" />
     				</div>
   				</div>
 
-  				<div class="form-group">
-    				<div class="form-check">
-      				<input class="form-check-input" type="checkbox" id="gridCheck" />
-      				<label class="form-check-label" for="gridCheck">Check me out</label>
+  				<div className="form-group">
+    				<div className="form-check">
+      				<input className="form-check-input" type="checkbox" id="gridCheck" />
+      				<label className="form-check-label" for="gridCheck">{t("Check me out")}</label>
    		 			</div>
   				</div>
 
-  				<button type="submit" class="btn btn-primary" onClick={this.onSubmit}>Submit</button> 
+  				<button type="submit" className="btn btn-primary" onClick={this.onSubmit}>{t("Submit")}</button> 
 				</form>
 			</div>
 		);
 	}
 }
 
-export default Information;
+export default withTranslation()(Information);

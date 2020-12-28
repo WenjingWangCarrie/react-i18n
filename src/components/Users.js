@@ -1,6 +1,8 @@
 import React from "react";
 import { Route, Link } from "react-router-dom";
 
+import { withTranslation } from "react-i18next";
+
 const User = ({ match }) => {
 	// console.log("match");
 	return <p>{ match.params.name }</p>;
@@ -8,12 +10,16 @@ const User = ({ match }) => {
 
 class Users extends React.Component {
 	render() {
-		const { url } = this.props.match;
+		// const { url } = this.props.match;
+
+		const { t } = this.props;
 
 		return (
-			<div class="container-fluid">
-				<h1>Users</h1>
-				<strong>Select a user</strong>
+			<div className="container">
+				<div className="jumbotron">
+					<h1>{t("Users")}</h1>
+					<h5>{t("Select a user")}</h5> 
+				</div>
 
 				<ul>
 					<li><Link to="/users/Carrie">User 1</Link></li>
@@ -26,5 +32,5 @@ class Users extends React.Component {
 	}
 }
 
-export default Users;
+export default withTranslation()(Users);
 

@@ -1,4 +1,5 @@
 import React from 'react'; 
+import { withTranslation } from 'react-i18next';
 
 class Clients extends React.Component {
 
@@ -32,20 +33,22 @@ class Clients extends React.Component {
 	render() { 
 		const { isLoaded, clients } = this.state;
 
+		const { t } = this.props;
+
 		if (!isLoaded) {
 			return <div>Loading.....</div>;
 		} 
 		
 		return (
-			<div class="container-fluid">
-				<center><h1>Clients List</h1></center>
+			<div className="container-fluid">
+				<center><h1>{t("Clients List")}</h1></center>
 
 				{clients.map(client => ( // if () change to {}, can't display data
-					<div class="card">
-						<div class="card-body">
-							<h4 class="card-title">{client.name}</h4>
-							<h5 class="card-subtitle mb-2 text-muted">{client.email}</h5>
-							<p class="card-text">{client.company.name}</p> 
+					<div className="card">
+						<div className="card-body">
+							<h4 className="card-title">{client.name}</h4>
+							<h5 className="card-subtitle mb-2 text-muted">{client.email}</h5>
+							<p className="card-text">{client.company.name}</p> 
 						</div>
 					</div>
 				))}
@@ -55,4 +58,4 @@ class Clients extends React.Component {
 
 }
 
-export default Clients;
+export default withTranslation()(Clients);

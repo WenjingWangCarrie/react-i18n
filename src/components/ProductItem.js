@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';   
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
+import "../App.css"; 
 
-function ProductItem({ match }) {
-	
-	let history = useHistory(); // go back page
+
+import { useTranslation } from 'react-i18next';
+
+function ProductItem({ match }) { 
 
 	useEffect(() => {
 		 fetchItem();
@@ -26,18 +28,22 @@ function ProductItem({ match }) {
 		}
 	});
 
+	const history = useHistory();
+
+	const { t } = useTranslation();
+
 	return (
-		<div class="container-fluid"> 
-			<div class="col-md-4 offset-md-4">
-				<div class="card">
-					<img src={result.item.images.icon} class="card-img-top" alt="" />
-					<div class="card-body">
-						<h5 class="card-title">{result.item.name}</h5>
-						<p class="card-text">Description: {result.item.description}</p>
+		<div className="container-fluid"> 
+			<div className="col-md-4 offset-md-4">
+				<div className="card">
+					<img id="simg" src={result.item.images.icon} className="card-img-top" alt="" />
+					<div className="card-body">
+						<h5 className="card-title">{result.item.name}</h5>
+						<p className="card-text">Description: {result.item.description}</p>
 					</div>
 
 					 <div className="card-footer">
-                        <button class="btn btn-primary btn-lg btn-block" onClick={() => history.goBack()}>Go Back</button>
+                        <button class="btn btn-light btn-lg btn-block" onClick={() => {history.goBack()} }>{t("Go Back")}</button>
                     </div>
 				</div>
 			</div>
