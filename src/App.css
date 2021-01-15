@@ -2,25 +2,6 @@
   text-align: center;
 }
 
-nav {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  min-height: 10vh;
-  background: grey;
-  color: white;
-}
-
-.container {  
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 60%;
-}
-.child {
-  text-align: center;
-}
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -54,4 +35,15 @@ nav {
   to {
     transform: rotate(360deg);
   }
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
+#simg {
+  background-color: red;
 }
