@@ -1,38 +1,53 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { useTranslation } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
-function Products() {
-	useEffect(() => {
-		fetchItems();
-	}, []);
+class Products extends React.Component {
 
-	const [items, setItems] = useState([]);
+    constructor(props) {
+        super(props);
 
-	const fetchItems = async () => {
-		const data = await fetch('https://fortnite-api.theapinetwork.com/store/get');
+        this.state = {
+            items: [],
+            isLoaded: false
+        }
+    }
+ 
+    componentDidMount() {
+        fetch('https://fortnite-api.theapinetwork.com/store/get')
+            .then(res => res.json())
+            .then(data => {
+                this.setState({
+                    items: data.data, // '<data>' in the json file
+                    isLoaded: true,
+                })
+            }).catch((err) => {
+                console.log(err);
+            });
+    }
 
-		const items = await data.json();
-		console.log(items.data);
+    render() {
+        const { isLoaded, items } = this.state;
+        const { t } = this.props;
 
-		setItems(items.data); // return "data" array
-	}
+        if (!isLoaded) {
+            return <div>Loading.....</div>;
+        }
 
-	const { t } = useTranslation();
+        return (
+            <div className="container-fluid">
+                <center><h1>{t("Products List")}</h1></center>
 
-	return (
-		<div className="container-fluid">
-			<center><h1>{t("Products List")}</h1></center>
-		 
-			{items.map(item => (
-				<h1 key={item.itemId}>
-					<Link to={`/products/${item.itemId}`}>{item.item.name}</Link>
-				</h1>
-			))}
-			
-		</div>
-	)
+                {items.map(item => (
+                    <h1 key={item.itemId}>
+                        <Link to={`/products/${item.itemId}`}>{item.item.name}</Link>
+                    </h1>
+                ))}
+            </div>  
+        );  
+    }
+  
 }
 
-export default Products;
+export default withTranslation()(Products);

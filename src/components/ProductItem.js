@@ -1,55 +1,66 @@
-import React, { useState, useEffect } from 'react';   
-import { useHistory } from 'react-router-dom';
-import "../App.css"; 
+import React from 'react';
+import { Link } from 'react-router-dom';
 
+import { withTranslation } from 'react-i18next';
 
-import { useTranslation } from 'react-i18next';
+class ProductItem extends React.Component {
 
-function ProductItem({ match }) { 
+  	constructor(props) {
+  	  	super(props);
+  	  	this.goBack = this.goBack.bind(this);
 
-	useEffect(() => {
-		 fetchItem();
-		 console.log(match);
-	}, [match.params.id]);
-
-	const fetchItem = async () => {
-	 	const fetchData = await fetch(
-	 		`https://fortnite-api.theapinetwork.com/item/get?id=${match.params.id}`);
+    	this.state = {  
+    		items: [],
+      		result: [],	
+      		icon: [],
+    	}
+    }
  
-	 	const result = await fetchData.json();
-	 	console.log(result);  
+    componentDidMount() { 
+        fetch(
+            `https://fortnite-api.theapinetwork.com/item/get?id=${this.props.match.params.id}`)
+        .then(res => res.json())
+        .then(data => {
+          	this.setState({
+           	 	items: data.data, // '<data>' in the json file 
+           	 	result: data.data.item,
+           	 	icon: data.data.item.images,
+          	})
+        })
+        .catch((err) => {
+          	console.log(err);
+        });
+    }
 
-	 	setItem(result.data);
-	 };
+    goBack() {
+    	this.props.history.goBack();
+    }
 
-	const [result, setItem] = useState({
-		item: {
-			images: {}
-		}
-	});
+    render() {
+      	const { result, icon } = this.state;
+      	const { t } = this.props;
 
-	const history = useHistory();
+		return (
+			<div className="container-fluid"> 
+				<div className="col-md-4 offset-md-4">
+					<div className="card">
+						<img id="simg" src={icon.icon} className="card-img-top" alt="" />
+						<div className="card-body">
+							<h5 className="card-title">{result.name}</h5>
+							<p className="card-text">Description: {result.description}</p>
+						</div>
 
-	const { t } = useTranslation();
-
-	return (
-		<div className="container-fluid"> 
-			<div className="col-md-4 offset-md-4">
-				<div className="card">
-					<img id="simg" src={result.item.images.icon} className="card-img-top" alt="" />
-					<div className="card-body">
-						<h5 className="card-title">{result.item.name}</h5>
-						<p className="card-text">Description: {result.item.description}</p>
+					 	<div className="card-footer">
+                       	 <button class="btn btn-light btn-lg btn-block" onClick={ this.goBack }>{t("Go Back")}</button>
+                    	</div>
 					</div>
-
-					 <div className="card-footer">
-                        <button class="btn btn-light btn-lg btn-block" onClick={() => {history.goBack()} }>{t("Go Back")}</button>
-                    </div>
 				</div>
-			</div>
 			
-		</div>
-	);
+			</div>
+		); 
+    }  
+ 
 }
 
-export default ProductItem;
+export default withTranslation()(ProductItem);
+
