@@ -1,29 +1,57 @@
-import React from "react"; 
-import ReactQuill from "react-quill"; 
-import "react-quill/dist/quill.snow.css";
-import TextEditorToolbar, { modules, formats } from "./TextEditorToolbar";  
+import React, { Component } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import 'react-quill/dist/quill.bubble.css';
 
-export const TextEditor = () => {
+class TextEditor extends Component {
+	constructor(props) {
+		super(props);
 
-	const [state, setState] = React.useState({ value: null });
-	const handleChange = value => {
-		setState({ value });
-	};
+		this.modules = {
+			toolbar: [
+		      [{'font': [] }],
+		      [{'size': ['small', 'large', 'huge'] }],
+		      ['bold', 'italic', 'underline'],
+		      [{'list': 'ordered'}, {'list': 'bullet'}],
+		      [{ 'align': ["", "center", "right"] }],
+		      [{ 'color': [] }, { 'background': [] }],
+		      ['clean']
+		    ]
+		};
 
-	return(
-		<div className="text-editor"><br></br>
-			<TextEditorToolbar />
-			
-			<ReactQuill 
-				theme="snow"
-				value={state.value}
-				onChange={handleChange}
-				placeholder={"Write something..."}
-				modules={modules}
-				formats={formats}
+		this.formats = [
+		    'font',
+		    'size',
+		    'bold', 'italic', 'underline',
+		    'list', 'bullet',
+		    'align',
+		    'color', 'background'
+	  	];
+
+	  	this.state = {
+			comments: ''
+		}
+
+		this.rteChange = this.rteChange.bind(this);
+	}
+
+	rteChange = (content, delta, source, editor) => {
+		console.log(editor.getHTML()); // rich text
+		console.log(editor.getText()); // plain text
+		console.log(editor.getLength()); // number of characters
+	}
+
+	render() {
+	    return (
+	      <div><br></br>
+	        <ReactQuill theme="snow"  modules={this.modules}
+				formats={this.formats} onChange={this.rteChange}
+				value={this.state.comments || ''} 
 			/>
-		</div>
-	);
-};
+	      </div>
+	    );
+	}
+
+}
 
 export default TextEditor;
